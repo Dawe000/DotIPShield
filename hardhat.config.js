@@ -7,7 +7,7 @@ module.exports = {
   solidity: "0.8.24",
   networks: {
     moonbase: {
-      url: process.env.MOONBEAM_RPC_URL || 'https://rpc.api.moonbase.moonbeam.network',
+      url: process.env.MOONBEAM_RPC_URL, // || 'https://rpc.api.moonbase.moonbeam.network',
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
     },
   },
