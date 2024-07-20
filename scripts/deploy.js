@@ -12,7 +12,7 @@ async function main() {
   // Deploy IPRegistration contract
 
 
-
+  const IPRegistrationFactory = await ethers.getContractFactory("IPRegistration");
   const ipRegistration = await IPRegistrationFactory.deploy({ nonce: nonce++ });
 
   const ipRegistrationAddress = await ipRegistration.getAddress();
