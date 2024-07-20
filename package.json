@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "hardhat": "^2.22.6"
+    "glob": "^7.2.0",
+    "hardhat": "^2.22.6",
+    "ipfs-http-client": "^60.0.1"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0"
