@@ -11,11 +11,13 @@ contract IPRegistration {
     mapping(string => IP) private ipRecords;
     IP[] private ipList;
 
+    address transferContractAddress;
+
     event IPRegistered(address indexed owner, string ipfsHash);
 
     function registerIP(string memory ipfsHash) public {
         require(bytes(ipfsHash).length > 0, "IPFS hash cannot be empty");
-        require(ipRecords[ipfsHash].owner == address(0), "IP already registered");
+        require(ipRecords[ipfsHash].owner == address(0) || msg.sender == transferContractAddress, "IP already registered");
 
         IP memory newIP = IP({
             owner: msg.sender,
@@ -27,6 +29,12 @@ contract IPRegistration {
         ipList.push(newIP);
 
         emit IPRegistered(msg.sender, ipfsHash);
+    }
+
+    function setTransferContract(address newTransferContractAddress) public {
+        require(transferContractAddress == address(0), "Only one transfer contract can be used");
+
+        transferContractAddress = newTransferContractAddress;
     }
 
     function getIP(string memory ipfsHash) public view returns (IP memory) {
