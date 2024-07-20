@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@nomicfoundation/hardhat-ignition": "^0.15.5",
+    "dotenv": "^16.4.5",
     "glob": "^7.2.0",
     "hardhat": "^2.22.6",
     "ipfs-http-client": "^60.0.1",
