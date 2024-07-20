@@ -1,5 +1,5 @@
 const { ethers } = require("hardhat");
-
+//test hello
 async function main() {
   // Retrieve the accounts
   const [deployer] = await ethers.getSigners();
@@ -10,7 +10,6 @@ async function main() {
   let nonce = await ethers.provider.getTransactionCount(deployer.address, "latest");
 
   // Deploy IPRegistration contract
-  const IPRegistrationFactory = await ethers.getContractFactory("IPRegistration");
 
 
 
