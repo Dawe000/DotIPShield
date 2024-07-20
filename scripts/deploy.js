@@ -1,4 +1,4 @@
-const hre = require("hardhat");
+const { ethers } = require("hardhat");
 
 async function main() {
   // Retrieve the accounts
@@ -11,6 +11,9 @@ async function main() {
 
   // Deploy IPRegistration contract
   const IPRegistrationFactory = await ethers.getContractFactory("IPRegistration");
+
+
+
   const ipRegistration = await IPRegistrationFactory.deploy({ nonce: nonce++ });
   console.log("IPRegistration deployed to:", ipRegistration.address);
 
