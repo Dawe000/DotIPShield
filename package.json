@@ -12,7 +12,8 @@
   "dependencies": {
     "glob": "^7.2.0",
     "hardhat": "^2.22.6",
-    "ipfs-http-client": "^60.0.1"
+    "ipfs-http-client": "^60.0.1",
+    "web3": "^4.11.0"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0"
