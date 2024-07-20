@@ -27,6 +27,9 @@ async function main() {
   // Optionally, you can interact with the contracts after deployment
   // Example: await ipRegistration.registerIP("0x123...");
 
+  const transferContractAddress = await ipTransfer.getAddress();
+  ipRegistration.setTransferContract(transferContractAddress);
+
   return {
     ipRegistration,
     ipTransfer,
