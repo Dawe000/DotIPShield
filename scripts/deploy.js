@@ -1,40 +1,29 @@
-const { ethers } = require("hardhat");
+const hre = require("hardhat");
 
 async function main() {
-  // Retrieve the accounts
-  const [deployer] = await ethers.getSigners();
+    const [deployer] = await hre.ethers.getSigners();
+  
+    console.log("Deploying contracts with the account:", deployer.address);
+  
+    // Deploy IPRegistration contract
+    const IPRegistration = await hre.ethers.getContractFactory("IPRegistration");
+    const ipRegistration = await IPRegistration.deploy();
+    await ipRegistration.waitForDeployment();
+    console.log("IPRegistration deployed to:", ipRegistration.address);
+  
+    // Deploy IPTransfer contract
+    const IPTransfer = await hre.ethers.getContractFactory("IPTransfer");
+    const ipTransfer = await IPTransfer.deploy();
+    await ipTransfer.waitForDeployment();
+    console.log("IPTransfer deployed to:", ipTransfer.address);
 
-  console.log("Deploying contracts with the account:", deployer.address);
-
-  // Get the nonce for the deployer account
-  let nonce = await ethers.provider.getTransactionCount(deployer.address, "latest");
-
-  // Deploy IPRegistration contract
-  const IPRegistrationFactory = await ethers.getContractFactory("IPRegistration");
-  const ipRegistration = await IPRegistrationFactory.deploy({ nonce: nonce++ });
-  console.log("IPRegistration deployed to:", ipRegistration.address);
-
-  // Deploy IPTransfer contract
-  const IPTransferFactory = await ethers.getContractFactory("IPTransfer");
-  const ipTransfer = await IPTransferFactory.deploy({ nonce: nonce++ });
-  console.log("IPTransfer deployed to:", ipTransfer.address);
-
-  // Deploy IPEnforcement contract
-  const IPEnforcementFactory = await ethers.getContractFactory("IPEnforcement");
-  const ipEnforcement = await IPEnforcementFactory.deploy({ nonce: nonce++ });
-  console.log("IPEnforcement deployed to:", ipEnforcement.address);
-
-  // Optionally, you can interact with the contracts after deployment
-  // Example: await ipRegistration.registerIP("0x123...");
-
-  return {
-    ipRegistration,
-    ipTransfer,
-    ipEnforcement
-  };
+    // Deploy IPVerification contract
+    const IPVerification = await hre.ethers.getContractFactory("IPVerification");
+    const ipVerification = await IPVerification.deploy();
+    await ipVerification.waitForDeployment();
+    console.log("IPVerification deployed to:", ipVerification.address);
 }
 
-// Run the deployment script
 main()
   .then(() => process.exit(0))
   .catch((error) => {
