@@ -1,31 +1,36 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import type { NextPage } from 'next';
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
 import Link from 'next/link';
 
 export default function Header() {
     return (
-        <div>
-            <div className="py-10 bg-blue-300 pl-auto pr-10">
-              <div className="flex justify-start">
-                <Link
-                  className="ml-10 items-center justify-centerflex rounded-full border-black bg-blue-500 px-5 py-1.5 duration-300 ease-in-out placeholder-blue-200 text-lg text-white "
-                  href="/">Home</Link>
-                <Link
-                  className="ml-10 items-center justify-centerflex rounded-full border-black bg-blue-500 px-5 py-1.5 duration-300 ease-in-out placeholder-blue-200 text-lg text-white "
-                  href="/View">View</Link><div className="ml-12">
-                <Link
-                  className="ml-10 items-center justify-centerflex rounded-full border-black bg-blue-500 px-5 py-1.5 duration-300 ease-in-out placeholder-blue-200 text-lg text-white "
-                  href="/Create">Create</Link><div className="ml-12"></div>
-                <Link
-                  className="ml-10 items-center justify-centerflex rounded-full border-black bg-blue-500 px-5 py-1.5 duration-300 ease-in-out placeholder-blue-200 text-lg text-white "
-                  href="/Transfer">Transfer</Link><div className="ml-12">
-                <ConnectButton/>
-              </div>
+        <div className="bg-blue-300 py-4">
+            <div className="container mx-auto flex justify-between items-center">
+                <div className="flex space-x-4">
+                    <Link href="/" passHref>
+                        <span className="cursor-pointer rounded-full bg-blue-500 px-5 py-2 text-white text-lg font-semibold shadow-md hover:bg-blue-600 transition duration-300 ease-in-out">
+                            Home
+                        </span>
+                    </Link>
+                    <Link href="/View" passHref>
+                        <span className="cursor-pointer rounded-full bg-blue-500 px-5 py-2 text-white text-lg font-semibold shadow-md hover:bg-blue-600 transition duration-300 ease-in-out">
+                            View
+                        </span>
+                    </Link>
+                    <Link href="/Create" passHref>
+                        <span className="cursor-pointer rounded-full bg-blue-500 px-5 py-2 text-white text-lg font-semibold shadow-md hover:bg-blue-600 transition duration-300 ease-in-out">
+                            Create
+                        </span>
+                    </Link>
+                    <Link href="/Transfer" passHref>
+                        <span className="cursor-pointer rounded-full bg-blue-500 px-5 py-2 text-white text-lg font-semibold shadow-md hover:bg-blue-600 transition duration-300 ease-in-out">
+                            Transfer
+                        </span>
+                    </Link>
+                </div>
+                <div className="ml-4">
+                    <ConnectButton />
+                </div>
             </div>
-          </div>
         </div>
-    </div> 
-    )
+    );
 }
