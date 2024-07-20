@@ -1,5 +1,5 @@
 const { ethers } = require("hardhat");
-
+//test hello
 async function main() {
   // Retrieve the accounts
   const [deployer] = await ethers.getSigners();
@@ -10,17 +10,22 @@ async function main() {
   let nonce = await ethers.provider.getTransactionCount(deployer.address, "latest");
 
   // Deploy IPRegistration contract
-  const IPRegistrationFactory = await ethers.getContractFactory("IPRegistration");
 
 
 
   const ipRegistration = await IPRegistrationFactory.deploy({ nonce: nonce++ });
-  console.log("IPRegistration deployed to:", ipRegistration.address);
+
+  const ipRegistrationAddress = await ipRegistration.getAddress();
+  console.log("IPRegistration deployed to:", ipRegistrationAddress);
+
 
   // Deploy IPTransfer contract
   const IPTransferFactory = await ethers.getContractFactory("IPTransfer");
-  const ipTransfer = await IPTransferFactory.deploy({ nonce: nonce++ });
-  console.log("IPTransfer deployed to:", ipTransfer.address);
+  const ipTransfer = await IPTransferFactory.deploy(ipRegistrationAddress, { nonce: nonce++ });
+
+  const transferContractAddress = await ipTransfer.getAddress();
+
+  console.log("IPTransfer deployed to:", transferContractAddress);
 
   // Deploy IPEnforcement contract
   const IPVerificationFactory = await ethers.getContractFactory("IPVerification");
@@ -31,7 +36,7 @@ async function main() {
   // Optionally, you can interact with the contracts after deployment
   // Example: await ipRegistration.registerIP("0x123...");
 
-  const transferContractAddress = await ipTransfer.getAddress();
+  
   ipRegistration.setTransferContract(transferContractAddress);
 
   return {
@@ -41,6 +46,7 @@ async function main() {
   };
 }
 
+// Run the deployment script
 main()
   .then(() => process.exit(0))
   .catch((error) => {
