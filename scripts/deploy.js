@@ -17,11 +17,19 @@ async function main() {
     await ipTransfer.waitForDeployment();
     console.log("IPTransfer deployed to:", ipTransfer.address);
 
-    // Deploy IPVerification contract
-    const IPVerification = await hre.ethers.getContractFactory("IPVerification");
-    const ipVerification = await IPVerification.deploy();
-    await ipVerification.waitForDeployment();
-    console.log("IPVerification deployed to:", ipVerification.address);
+  // Deploy IPEnforcement contract
+  const IPEnforcementFactory = await ethers.getContractFactory("IPEnforcement");
+  const ipEnforcement = await IPEnforcementFactory.deploy({ nonce: nonce++ });
+  console.log("IPEnforcement deployed to:", ipEnforcement.address);
+
+  // Optionally, you can interact with the contracts after deployment
+  // Example: await ipRegistration.registerIP("0x123...");
+
+  return {
+    ipRegistration,
+    ipTransfer,
+    ipEnforcement
+  };
 }
 
 main()
