@@ -11,29 +11,39 @@ async function main() {
 
   // Deploy IPRegistration contract
   const IPRegistrationFactory = await ethers.getContractFactory("IPRegistration");
+
+
+
   const ipRegistration = await IPRegistrationFactory.deploy({ nonce: nonce++ });
-  console.log("IPRegistration deployed to:", ipRegistration.address);
+
+  const ipRegistrationAddress = await ipRegistration.getAddress();
+  console.log("IPRegistration deployed to:", ipRegistrationAddress);
+
 
   // Deploy IPTransfer contract
   const IPTransferFactory = await ethers.getContractFactory("IPTransfer");
-  const ipTransfer = await IPTransferFactory.deploy({ nonce: nonce++ });
-  console.log("IPTransfer deployed to:", ipTransfer.address);
+  const ipTransfer = await IPTransferFactory.deploy(ipRegistrationAddress, { nonce: nonce++ });
+
+  const transferContractAddress = await ipTransfer.getAddress();
+
+  console.log("IPTransfer deployed to:", transferContractAddress);
 
   // Deploy IPEnforcement contract
-  const IPEnforcementFactory = await ethers.getContractFactory("IPEnforcement");
-  const ipEnforcement = await IPEnforcementFactory.deploy({ nonce: nonce++ });
-  console.log("IPEnforcement deployed to:", ipEnforcement.address);
+  const IPVerificationFactory = await ethers.getContractFactory("IPVerification");
+  const ipVerification = await IPVerificationFactory.deploy(ipRegistrationAddress, { nonce: nonce++ });
+
+  console.log("IPVerification deployed to:", ipVerification.getAddress());
 
   // Optionally, you can interact with the contracts after deployment
   // Example: await ipRegistration.registerIP("0x123...");
 
-  const transferContractAddress = await ipTransfer.getAddress();
+  
   ipRegistration.setTransferContract(transferContractAddress);
 
   return {
     ipRegistration,
     ipTransfer,
-    ipEnforcement
+    ipVerification
   };
 }
 
