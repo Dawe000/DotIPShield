@@ -3,6 +3,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Header from '../../components/header';
 import { Main } from 'next/document';
+import TransferForm from '../../components/transferForm';
 
 export default function Page() {
   return (
@@ -18,7 +19,7 @@ export default function Page() {
     
         <div>
           <Header/>
-          Hello
+          <TransferForm/>
         </div>
         
       
