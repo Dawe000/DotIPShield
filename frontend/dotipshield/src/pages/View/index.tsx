@@ -9,7 +9,7 @@ const web3 = new Web3('https://rpc.api.moonbase.moonbeam.network');
 const registrationContract = new web3.eth.Contract(registrationABI, registrationAddress);
 registrationContract.handleRevert = true;
 
-const View: NextPage = () => {
+const View = () => {
   const { address: userAddress, isConnected } = useAccount();
   const [ips, setIps] = useState([]);
 
@@ -34,31 +34,34 @@ const View: NextPage = () => {
   return (
     <div>
       <Header />
-      <p className="text-4xl font-bold mt-4">View page</p>
-
-      <div className="mt-4">
-        <h2 className="text-xl font-bold">Your IPFS Hashes</h2>
+      <p className="text-4xl font-bold mt-4 text-center">View page</p>
+      <div className="mt-8 container mx-auto px-4">
+        <h2 className="text-2xl font-bold mb-4">Your IPFS Hashes</h2>
         {userIps.length === 0 ? (
-          <p>No IPFS hashes found for this address.</p>
+          <p className="text-gray-700">No IPFS hashes found for this address.</p>
         ) : (
-          <table className="min-w-full bg-white border-collapse border border-gray-400">
-            <thead>
-              <tr>
-                <th className="border border-gray-400 px-4 py-2">Timestamp</th>
-                <th className="border border-gray-400 px-4 py-2">IPFS Hash</th>
-              </tr>
-            </thead>
-            <tbody>
-              {userIps.map((ip, index) => (
-                <tr key={index}>
-                  <td className="border border-gray-400 px-4 py-2">
-                    {new Date(Number(ip.timestamp) * 1000).toLocaleString()}
-                  </td>
-                  <td className="border border-gray-400 px-4 py-2">{ip.ipfsHash}</td>
+          <div className="overflow-x-auto">
+            <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+              <thead className="bg-gray-800 text-white">
+                <tr>
+                  <th className="w-16 py-3 px-4 uppercase font-semibold text-sm text-center">#</th>
+                  <th className="py-3 px-4 uppercase font-semibold text-sm text-left">Timestamp</th>
+                  <th className="py-3 px-4 uppercase font-semibold text-sm text-left">IPFS Hash</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="text-gray-700">
+                {userIps.map((ip, index) => (
+                  <tr key={index} className="border-b">
+                    <td className="py-3 px-4 text-center">{index + 1}</td>
+                    <td className="py-3 px-4">
+                      {new Date(Number(ip.timestamp) * 1000).toLocaleString()}
+                    </td>
+                    <td className="py-3 px-4">{ip.ipfsHash}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>
