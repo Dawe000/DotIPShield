@@ -26,7 +26,6 @@ class Create extends Component {
   constructor(props) {
     super(props);
     this.init = this.init.bind(this);
-    this.submit = this.submit.bind(this);
     this.handleUpload = this.handleUpload.bind(this);
     this.state = {
       ips: []
@@ -46,17 +45,13 @@ class Create extends Component {
     }
   }
 
-  async submit(event){
-    event.preventDefault();
-    alert(event.target.ipfs.value);
-  }
 
   
 
 
   async handleUpload(hash){
     console.log("here");   
-    
+    alert("IPFS hash: "+hash)
   }
 
   
@@ -66,25 +61,8 @@ class Create extends Component {
     return (
       <div>
         <Header/>
-        <p>View page</p>
-        <button onClick={this.init}>clickme</button>
         <div className="flex">
-        <form className="flex flex-col" onSubmit={this.submit}>
-      <label htmlFor="ipfs" className="mb-2 italic">ipfs</label>
-      <input
-        className="mb-4 border-b-2"
-        id="ipfs"
-        name="ipfs"
-        type="text"
-        required
-      />
-      <button
-        type="submit"
-        className="px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
-      >
-        Submit
-      </button>
-    </form>
+      
     <UploadButton onUpload={this.handleUpload}/>;
           </div>
         </div>

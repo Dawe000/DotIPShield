@@ -1,55 +1,68 @@
+import React, { useEffect, useState } from 'react';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import type { NextPage } from 'next';
-import Head from 'next/head';
+import { useAccount } from 'wagmi';
+import Web3 from 'web3';
+import { registrationABI, registrationAddress } from '../../Constants/config';
 import Header from '../../components/header';
-import { init } from 'next/dist/compiled/webpack/webpack';
-import React from 'react';
-import { WagmiContext } from 'wagmi';
-import { readContract, writeContract } from 'viem/actions';
-import {registrationABI, registrationAddress} from '../../Constants/config';
-import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
-const { Web3 } = require('web3');
 
-
-const web3 = new Web3('https://rpc.api.moonbase.moonbeam.network'); 
+const web3 = new Web3('https://rpc.api.moonbase.moonbeam.network');
 const registrationContract = new web3.eth.Contract(registrationABI, registrationAddress);
 registrationContract.handleRevert = true;
 
-import { Component } from 'react';
+const View: NextPage = () => {
+  const { address: userAddress, isConnected } = useAccount();
+  const [ips, setIps] = useState([]);
 
-class View extends Component {
-  constructor(props) {
-    super(props);
-    this.init = this.init.bind(this);
-    this.state = {
-      ips: []
-    };
-  }
+  useEffect(() => {
+    if (isConnected) {
+      fetchIps();
+    }
+  }, [isConnected, userAddress]);
 
-
-  async init() {
+  const fetchIps = async () => {
     try {
       const ips = await registrationContract.methods.getAllIPs().call();
-      this.setState({ ips });
+      setIps(ips);
       console.log(ips);
     } catch (error) {
-      console.error("Error fetching IPs", error);
+      console.error('Error fetching IPs', error);
     }
-  }
+  };
 
-  render() {
-    return (
-      <div>
-        <Header/>
-        <p>View page</p>
-        <button onClick={this.init}>clickme</button>
+  const userIps = ips.filter(ip => ip.owner.toLowerCase() === userAddress?.toLowerCase());
+
+  return (
+    <div>
+      <Header />
+      <p>View page</p>
+
+      <div className="mt-4">
+        <h2 className="text-xl font-bold">Your IPFS Hashes</h2>
+        {userIps.length === 0 ? (
+          <p>No IPFS hashes found for this address.</p>
+        ) : (
+          <table className="min-w-full bg-white border-collapse border border-gray-400">
+            <thead>
+              <tr>
+                <th className="border border-gray-400 px-4 py-2">Timestamp</th>
+                <th className="border border-gray-400 px-4 py-2">IPFS Hash</th>
+              </tr>
+            </thead>
+            <tbody>
+              {userIps.map((ip, index) => (
+                <tr key={index}>
+                  <td className="border border-gray-400 px-4 py-2">
+                    {new Date(Number(ip.timestamp) * 1000).toLocaleString()}
+                  </td>
+                  <td className="border border-gray-400 px-4 py-2">{ip.ipfsHash}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default View;
-
-
-
-
