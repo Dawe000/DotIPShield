@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import axios from 'axios';
-import { useContractWrite, useWriteContract } from 'wagmi';
+import { useContractWrite } from 'wagmi';
 import { registrationABI, registrationAddress } from '../Constants/config';
 import { SecretAPIkey, APIKey } from '../Constants/pinata';
 import { NextPage } from 'next';
@@ -11,6 +11,7 @@ const pinataSecretApiKey = SecretAPIkey;
 const Home: NextPage = () => {
   const fileInputRef = useRef(null);
   const [ipfsHash, setIpfsHash] = useState<string | null>(null);
+  const [uploadStatus, setUploadStatus] = useState<string | null>(null);
 
   const handleButtonClick = () => {
     fileInputRef.current?.click();
@@ -40,19 +41,20 @@ const Home: NextPage = () => {
         address: registrationAddress,
         abi: registrationABI,
         functionName: 'registerIP',
-            args: [ipfsHash] });
+        args: [ipfsHash] 
+      });
+      setUploadStatus('success');
     } catch (error) {
       console.error('Error uploading file to IPFS:', error);
       alert('Error uploading file to IPFS');
+      setUploadStatus('error');
     }
   };
 
-      const { data: hash, writeContract } = useWriteContract() ;
-
-
+  const { data: hash, writeContract } = useContractWrite();
 
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <input
         type="file"
         ref={fileInputRef}
@@ -66,6 +68,12 @@ const Home: NextPage = () => {
       >
         Upload File
       </button>
+      {uploadStatus === 'success' && (
+        <p className="mt-4 text-green-500">File uploaded successfully!</p>
+      )}
+      {uploadStatus === 'error' && (
+        <p className="mt-4 text-red-500">Error uploading file.</p>
+      )}
     </div>
   );
 };
