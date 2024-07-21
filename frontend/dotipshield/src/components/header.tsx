@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 const Header = () => {
   return (
-    <div className="bg-blue-300 py-4">
+    <div className="bg-gray-200 py-4">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-4">
           <Image src="/logo.png" alt="Logo" width={100} height={50} className="mr-4" />
