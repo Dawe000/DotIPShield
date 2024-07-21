@@ -15,8 +15,6 @@ const { Web3 } = require('web3');
 
 
 const web3 = new Web3('https://rpc.api.moonbase.moonbeam.network'); 
-const registrationContract = new web3.eth.Contract(registrationABI, registrationAddress);
-registrationContract.handleRevert = true;
 
 import { Component } from 'react';
 
