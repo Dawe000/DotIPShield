@@ -25,7 +25,6 @@ class Create extends Component {
 
   constructor(props) {
     super(props);
-    this.init = this.init.bind(this);
     this.handleUpload = this.handleUpload.bind(this);
     this.state = {
       ips: []
@@ -35,15 +34,6 @@ class Create extends Component {
   
 
 
-  async init() {
-    try {
-      const ips = await registrationContract.methods.getAllIPs().call();
-      this.setState({ ips });
-      console.log(ips);
-    } catch (error) {
-      console.error("Error fetching IPs", error);
-    }
-  }
 
 
   

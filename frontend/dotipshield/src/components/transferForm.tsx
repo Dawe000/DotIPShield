@@ -2,8 +2,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 import { useWriteContract } from 'wagmi';
 import { TransferABI, transferAddress } from '../Constants/config';
-import { SecretAPIkey, APIKey } from '../Constants/pinata';
-import { NextPage } from 'next';
 
 const TransferForm: React.FC = () => {
   const [ipfsHash, setIpfsHash] = useState<string>('');
@@ -17,13 +15,12 @@ const TransferForm: React.FC = () => {
     console.log(ipfsHash);
     console.log(targetAddress);
 
-    writeContract({
+    const tx = await writeContract({
         address: transferAddress,
         abi: TransferABI,
         functionName: 'transferIPOwnership',
         args: [ipfsHash, targetAddress],
       });
-
       console.log("ufudf");
     }
     
@@ -32,7 +29,7 @@ const TransferForm: React.FC = () => {
   return (
     <div className="p-4">
       <h2 className="text-xl font-bold mb-4">Transfer IPFS Ownership</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form className="space-y-4">
         <div>
           <label htmlFor="ipfsHash" className="block text-sm font-medium text-gray-700">
             IPFS Hash
@@ -59,7 +56,7 @@ const TransferForm: React.FC = () => {
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
           />
         </div>
-        <button
+        <button onClick={handleSubmit}
           type="submit"
           className="px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
         >
