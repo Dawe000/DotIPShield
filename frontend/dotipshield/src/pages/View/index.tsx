@@ -6,8 +6,10 @@ import { init } from 'next/dist/compiled/webpack/webpack';
 import React from 'react';
 import { WagmiContext } from 'wagmi';
 import { readContract, writeContract } from 'viem/actions';
-import {registrationABI, registrationAddress} from '../../Constants/config'
+import {registrationABI, registrationAddress} from '../../Constants/config';
+import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
 const { Web3 } = require('web3');
+
 
 const web3 = new Web3('https://rpc.api.moonbase.moonbeam.network'); 
 const registrationContract = new web3.eth.Contract(registrationABI, registrationAddress);
@@ -23,6 +25,7 @@ class View extends Component {
       ips: []
     };
   }
+
 
   async init() {
     try {
