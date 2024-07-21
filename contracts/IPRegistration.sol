@@ -17,10 +17,25 @@ contract IPRegistration {
 
     function registerIP(string memory ipfsHash) public {
         require(bytes(ipfsHash).length > 0, "IPFS hash cannot be empty");
-        require(ipRecords[ipfsHash].owner == address(0) || msg.sender == transferContractAddress, "IP already registered");
+        require(ipRecords[ipfsHash].owner == address(0), "IP already registered");
 
         IP memory newIP = IP({
             owner: msg.sender,
+            timestamp: block.timestamp,
+            ipfsHash: ipfsHash
+        });
+
+        ipRecords[ipfsHash] = newIP;
+        ipList.push(newIP);
+
+        emit IPRegistered(msg.sender, ipfsHash);
+    }
+
+    function registerIP(string memory ipfsHash, address newOwner) public {
+        require(msg.sender == transferContractAddress, "Transfer must originate from transfer contract");
+
+        IP memory newIP = IP({
+            owner: newOwner,
             timestamp: block.timestamp,
             ipfsHash: ipfsHash
         });

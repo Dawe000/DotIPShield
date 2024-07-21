@@ -16,7 +16,7 @@ contract IPTransfer {
         require(newOwner != address(0), "New owner address cannot be empty");
 
         // Update the IP record
-        ipRegistration.registerIP(ipfsHash); // Re-registers the IP with the new owner
+        ipRegistration.registerIP(ipfsHash, newOwner); // Re-registers the IP with the new owner
         
     }
 

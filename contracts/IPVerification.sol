@@ -19,6 +19,10 @@ contract IPVerification {
         return ipRegistration.getIP(ipfsHash);
     }
 
+    function getIPOwner(string memory ipfsHash) public view returns (address memory) {
+        return ipRegistration.getIP(ipfsHash).owner;
+    }
+
     function getAllIPDetails() public view returns (IPRegistration.IP[] memory) {
         return ipRegistration.getAllIPs();
     }
