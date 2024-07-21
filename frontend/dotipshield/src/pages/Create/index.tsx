@@ -60,10 +60,11 @@ class Create extends Component {
   render() {
     return (
       <div>
-        <Header/>
-        <div className="flex">
+        <Header />
+        <div className="flex flex-col items-center mt-8">
+          <h2 className="text-2xl font-bold mb-4">Upload to IPFS</h2>
       
-    <UploadButton onUpload={this.handleUpload}/>;
+    <UploadButton onUpload={this.handleUpload}/>
           </div>
         </div>
         

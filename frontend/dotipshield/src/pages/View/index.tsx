@@ -34,7 +34,7 @@ const View: NextPage = () => {
   return (
     <div>
       <Header />
-      <p>View page</p>
+      <p className="text-4xl font-bold mt-4">View page</p>
 
       <div className="mt-4">
         <h2 className="text-xl font-bold">Your IPFS Hashes</h2>
