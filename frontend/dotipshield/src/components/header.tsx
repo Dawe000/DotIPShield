@@ -10,21 +10,26 @@ const Header = () => {
         <div className="flex items-center space-x-4">
           <Image src="/logo.png" alt="Logo" width={100} height={50} className="mr-4" />
           <nav className="flex space-x-4">
-          <Link href="/View" passHref>
-            <span className="cursor-pointer rounded-full bg-blue-500 px-5 py-2 text-white text-lg font-semibold shadow-md hover:bg-blue-600 transition duration-300 ease-in-out">
-              View
-            </span>
-          </Link>
-          <Link href="/Create" passHref>
-            <span className="cursor-pointer rounded-full bg-blue-500 px-5 py-2 text-white text-lg font-semibold shadow-md hover:bg-blue-600 transition duration-300 ease-in-out">
-              Create
-            </span>
-          </Link>
-          <Link href="/Transfer" passHref>
-            <span className="cursor-pointer rounded-full bg-blue-500 px-5 py-2 text-white text-lg font-semibold shadow-md hover:bg-blue-600 transition duration-300 ease-in-out">
-              Transfer
-            </span>
-          </Link>
+            <Link href="/" passHref>
+              <span className="cursor-pointer rounded-full bg-blue-500 px-5 py-2 text-white text-lg font-semibold shadow-md hover:bg-blue-600 transition duration-300 ease-in-out">
+                Home
+              </span>
+            </Link>
+            <Link href="/View" passHref>
+              <span className="cursor-pointer rounded-full bg-blue-500 px-5 py-2 text-white text-lg font-semibold shadow-md hover:bg-blue-600 transition duration-300 ease-in-out">
+                View
+              </span>
+            </Link>
+            <Link href="/Create" passHref>
+              <span className="cursor-pointer rounded-full bg-blue-500 px-5 py-2 text-white text-lg font-semibold shadow-md hover:bg-blue-600 transition duration-300 ease-in-out">
+                Create
+              </span>
+            </Link>
+            <Link href="/Transfer" passHref>
+              <span className="cursor-pointer rounded-full bg-blue-500 px-5 py-2 text-white text-lg font-semibold shadow-md hover:bg-blue-600 transition duration-300 ease-in-out">
+                Transfer
+              </span>
+            </Link>
           </nav>
         </div>
         <div className="ml-4">
